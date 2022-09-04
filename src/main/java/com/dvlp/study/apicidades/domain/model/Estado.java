@@ -1,8 +1,23 @@
 package com.dvlp.study.apicidades.domain.model;
 
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
+import java.util.List;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@TypeDefs({
+        @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
+})
 public class Estado {
 
     @Id
@@ -18,11 +33,13 @@ public class Estado {
     @Column(name ="ibge")
     private String codigoIbge;
 
-    @Column(name="pais")
-    private Integer pais;
+    @ManyToOne
+    @JoinColumn(name = "pais", referencedColumnName = "id")
+    private Pais pais;
 
-    @Column(name = "ddd")
-    private String ddd;
-
+    @Type(type = "jsonb")
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "ddd", columnDefinition = "jsonb")
+    private List<Integer> ddd;
 
 }

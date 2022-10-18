@@ -4,7 +4,6 @@ import com.dvlp.study.apicidades.application.controller.response.PaisDataRespons
 import com.dvlp.study.apicidades.domain.model.Pais;
 import com.dvlp.study.apicidades.domain.usecase.ConsultarPaisUseCase;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PaisController {
 
-    @Autowired
-    private ConsultarPaisUseCase consultarPaisUseCase;
+    final ConsultarPaisUseCase consultarPaisUseCase;
 
     @GetMapping
     public ResponseEntity<List<Pais>> consultarPais(){
